@@ -62,6 +62,3 @@ function _connectGoogleApi() {
     })
 }
 
-function returnMap(){
-    return gMap
-}
