@@ -11,7 +11,7 @@ window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
 window.onGo = onGoLoc;
 window.onDelete = onDeleteLoc;
-window.onsearch = onSearch;
+window.onSearch = onSearch;
 
 function onInit() {
     mapService.initMap()
@@ -89,6 +89,7 @@ function onAddLoc() {
 }
 
 function onSearch() {
-    let elSearch = document.querySelector('.search-inpu').value
+    let searchParam = document.querySelector('.search-input').value
+    mapService.getLocByAddress(searchParam)
     
 }

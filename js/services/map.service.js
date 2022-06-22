@@ -8,6 +8,7 @@ export const mapService = {
     initMap,
     addMarker,
     panTo,
+    getLocByAddress
 
 }
 
@@ -71,3 +72,7 @@ function _connectGoogleApi() {
     })
 }
 
+function getLocByAddress(address){
+    var url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiService.getKey()}`
+    var temp = axios.get(url).then((res)=>console.log(res.data.results))
+}
