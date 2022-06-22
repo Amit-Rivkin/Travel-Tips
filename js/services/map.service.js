@@ -1,6 +1,7 @@
 
 
 import { apiService } from '../../key.js'
+import { locService } from './loc.service.js'
 
 export const mapService = {
     initMap,
@@ -23,14 +24,20 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 zoom: 15
             
             })
-            google.maps.event.addListener(gMap, 'click', function(event) {
-                alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
-              });
+
+            addLocListener()
             console.log('Map!', gMap);
         })
         
 }
 
+function addLocListener(){
+    gMap.addListener("click", (mapsMouseEvent) => {
+
+        locService.addLoc(mapsMouseEvent.latLng.toJSON())
+        
+    })
+}
 
 function addMarker(loc) {
     var marker = new google.maps.Marker({
