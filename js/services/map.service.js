@@ -48,11 +48,11 @@ function addLocListener() {
     })
 }
 
-function addMarker(loc) {
+function addMarker(loc, name) {
     var marker = new google.maps.Marker({
         position: loc,
         map: gMap,
-        title: 'Hello World!'
+        title: name
     });
     return marker;
 }

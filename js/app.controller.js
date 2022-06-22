@@ -46,10 +46,10 @@ function onGetLocs() {
 function onGetUserPos() {
     getPosition()
         .then(pos => {
-            console.log('User position is:', pos.coords);
-            document.querySelector('.user-pos').innerText =
-                `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
+            console.log('User position is:', pos.coords)
             mapService.panTo(pos.coords.latitude, pos.coords.longitude)
+            var markerLatLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude)
+            mapService.addMarker(markerLatLng)
         })
         .catch(err => {
             console.log('err!!!', err);
@@ -68,7 +68,7 @@ function renderLocations() {
     locService.getLocs().then((locs) => {
         console.log(locs)
         strHTML = locs.map((loc) => {
-            return `<div>name: ${loc.name}, lat:${loc.lat}, lng:${loc.lng} <button class="go" onclick="onGo(${loc.lat}, ${loc.lng})">Go</button>
+            return `<div class="loc-info">name: ${loc.name}, lat:${loc.lat}, lng:${loc.lng} <button class="go" onclick="onGo(${loc.lat}, ${loc.lng})">Go</button>
             <button class="delete" onclick="onDelete(${loc.id})">Delete</button>
             </div>`
         })
@@ -78,6 +78,8 @@ function renderLocations() {
 
 function onGoLoc(lat, lng) {
     mapService.panTo(lat, lng)
+    var markerLatLng = new google.maps.LatLng(lat, lng)
+    mapService.addMarker(markerLatLng)
 }
 function onDeleteLoc(id) {
     locService.deleteLoc(id)

@@ -12,22 +12,22 @@
     <header class="header main-layout">
         <h1>TravelTip</h1>
         <div>
-        <input class="search-input" type="text" placeholder="Enter Loction"><button onclick="onSearch()">Go</button>
-    </div>
+            <input class="search-input" type="text" placeholder="Enter Loction"><button onclick="onSearch()">Go</button>
+        </div>
         <button onclick="onGetUserPos()" class="btn-user-pos">My Location</button>
-    </header>
-    <br>
-    <section class="location main-layout">
-        <h1 class="location-param">Loction: </h1>
-        <button onclick="copyLoc()">Copy Loction</button>
-    </section>
-    <div class="main-layout" id="map" style="width: 100%; height: 400px;">
-        <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
-        <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
-        <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
-    </div>
-    <div class="main-layout">
-    <p>Locations: <span class="locs"></span></p></div>
+</header>
+<br>
+<section class="location main-layout">
+    <h1 class="location-param">Loction: </h1>
+    <button onclick="copyLoc()">Copy Loction</button>
+</section>
+<div class="main-layout" id="map" style="width: 100%; height: 400px;">
+    <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
+    <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
+    <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
+</div>
+<div class="main-layout">
+    <p class="p-loc">Locations: <span class="locs"></span></p></div>
 
     <script src="lib/axios.js"></script>
     <script type="module" src="js/app.controller.js"></script>
