@@ -9,8 +9,9 @@ window.onAddMarker = onAddMarker;
 window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
-window.onGo = onGo;
-window.onDelete = onDelete;
+window.onGo = onGoLoc;
+window.onDelete = onDeleteLoc;
+window.onsearch = onSearch;
 
 function onInit() {
     mapService.initMap()
@@ -75,14 +76,19 @@ function renderLocations() {
     })
 }
 
-function onGo(lat, lng) {
+function onGoLoc(lat, lng) {
     mapService.panTo(lat, lng)
 }
-function onDelete(id) {
-   locService.deleteLoc(id)
-   renderLocations()
+function onDeleteLoc(id) {
+    locService.deleteLoc(id)
+    renderLocations()
 }
 
 function onAddLoc() {
     renderLocations()
+}
+
+function onSearch() {
+    let elSearch = document.querySelector('.search-inpu').value
+    
 }
