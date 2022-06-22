@@ -1,11 +1,16 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
+export const appConroller = {
+    onAddLoc
+}
 
 window.onload = onInit;
 window.onAddMarker = onAddMarker;
 window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
+window.onGo = onGo;
+window.onDelete = onDelete;
 
 function onInit() {
     mapService.initMap()
@@ -43,7 +48,7 @@ function onGetUserPos() {
             console.log('User position is:', pos.coords);
             document.querySelector('.user-pos').innerText =
                 `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
-                mapService.panTo(pos.coords.latitude, pos.coords.longitude)
+            mapService.panTo(pos.coords.latitude, pos.coords.longitude)
         })
         .catch(err => {
             console.log('err!!!', err);
@@ -55,15 +60,29 @@ function onPanTo() {
 }
 
 
-function renderLocations(){ 
+function renderLocations() {
     var elLocations = document.querySelector(".locs")
     var strHTML = ``
 
-    locService.getLocs().then((locs)=> {
+    locService.getLocs().then((locs) => {
         console.log(locs)
-        strHTML = locs.map((loc)=>{
-            return `<div>name: ${loc.name}, lat:${loc.lat}, lng:${loc.lng}</div>`
+        strHTML = locs.map((loc) => {
+            return `<div>name: ${loc.name}, lat:${loc.lat}, lng:${loc.lng} <button class="go" onclick="onGo(${loc.lat}, ${loc.lng})">Go</button>
+            <button class="delete" onclick="onDelete(${loc.id})">Delete</button>
+            </div>`
         })
-        elLocations.innerHTML =  strHTML.join('')
+        elLocations.innerHTML = strHTML.join('')
     })
+}
+
+function onGo(lat, lng) {
+    mapService.panTo(lat, lng)
+}
+function onDelete(id) {
+   locService.deleteLoc(id)
+   renderLocations()
+}
+
+function onAddLoc() {
+    renderLocations()
 }

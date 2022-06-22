@@ -2,12 +2,13 @@
 
 import { apiService } from '../../key.js'
 import { locService } from './loc.service.js'
+import {appConroller} from '../app.controller.js'
 
 export const mapService = {
     initMap,
     addMarker,
     panTo,
-    
+
 }
 
 var gMap;
@@ -22,20 +23,21 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 document.querySelector('#map'), {
                 center: { lat, lng },
                 zoom: 15
-            
+
             })
 
             addLocListener()
             console.log('Map!', gMap);
         })
-        
+
 }
 
-function addLocListener(){
+function addLocListener() {
     gMap.addListener("click", (mapsMouseEvent) => {
+        locService.addLoc(appConroller.onAddLoc, mapsMouseEvent.latLng.toJSON());
+        // let { lat, lng } = mapsMouseEvent.latLng
+        // console.log(lat(), lng());
 
-        locService.addLoc(mapsMouseEvent.latLng.toJSON())
-        
     })
 }
 
