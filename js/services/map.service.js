@@ -1,6 +1,6 @@
 
 
-import { apiService } from './key.js'
+import { apiService } from '../../key.js'
 
 export const mapService = {
     initMap,
