@@ -13,6 +13,7 @@ export const mapService = {
 }
 
 var gMap;
+var gMarker;
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap');
@@ -35,10 +36,15 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 
 function addLocListener() {
     gMap.addListener("click", (mapsMouseEvent) => {
-        locService.addLoc(appConroller.onAddLoc, mapsMouseEvent.latLng.toJSON());
-        // let { lat, lng } = mapsMouseEvent.latLng
-        // console.log(lat(), lng());
-
+        var locName = prompt("enter place name") || "Yarons uncle house"
+        var latLng = mapsMouseEvent.latLng.toJSON()
+        locService.addLoc(appConroller.onAddLoc, latLng, locName);
+        if(gMarker) gMarker.setMap(null)
+        var markerLatLng = new google.maps.LatLng(latLng.lat, latLng.lng);
+        gMarker = new google.maps.Marker({
+            position: markerLatLng,
+        });
+        gMarker.setMap(gMap)
     })
 }
 
@@ -74,5 +80,5 @@ function _connectGoogleApi() {
 
 function getLocByAddress(address){
     var url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiService.getKey()}`
-    var temp = axios.get(url).then((res)=>console.log(res.data.results))
+    return axios.get(url).then((res)=>res.data.results)
 }

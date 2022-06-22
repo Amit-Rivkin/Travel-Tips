@@ -45,9 +45,9 @@ function saveLocs() {
 function loadLocs() {
     return storageService.loadFromStorage()
 }
-function createLoc(lat, lng) {
+function createLoc(lat, lng, name="Yarons uncle house") {
     return {
-        name: "custom",
+        name,
         lat,
         lng,
         id: gId++,
@@ -56,8 +56,8 @@ function createLoc(lat, lng) {
         updatedAt: 20,
     }
 }
-function addLoc(fn, { lat, lng }) {
-    locs.push(createLoc(lat, lng))
+function addLoc(fn, { lat, lng }, name) {
+    locs.push(createLoc(lat, lng, name))
     saveLocs()
     fn()
     console.log("addLocation", locs)

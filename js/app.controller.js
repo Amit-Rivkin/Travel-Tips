@@ -90,6 +90,12 @@ function onAddLoc() {
 
 function onSearch() {
     let searchParam = document.querySelector('.search-input').value
-    mapService.getLocByAddress(searchParam)
+    var elLocationH1 = document.querySelector('.location-param')
+    mapService.getLocByAddress(searchParam).then((res)=>{
+        if(!res) return
+        console.log(res[0])
+        elLocationH1.innerHTML += res[0].formatted_address
+        mapService.panTo(res[0].geometry.location.lat, res[0].geometry.location.lng)
+    })
     
 }
