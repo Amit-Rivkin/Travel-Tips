@@ -5,14 +5,15 @@ import { apiService } from '../../key.js'
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
+    
 }
 
 var gMap;
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap');
-    console.log(apiService)
+    // console.log(apiService)
     return _connectGoogleApi()
         .then(() => {
             console.log('google available');
@@ -20,10 +21,16 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 document.querySelector('#map'), {
                 center: { lat, lng },
                 zoom: 15
+            
             })
+            google.maps.event.addListener(gMap, 'click', function(event) {
+                alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
+              });
             console.log('Map!', gMap);
         })
+        
 }
+
 
 function addMarker(loc) {
     var marker = new google.maps.Marker({
@@ -53,4 +60,8 @@ function _connectGoogleApi() {
         elGoogleApi.onload = resolve;
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
+}
+
+function returnMap(){
+    return gMap
 }
